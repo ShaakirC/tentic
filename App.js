@@ -8,16 +8,8 @@
 
 import React from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Alert,
-  Text,
-  Image,
-  Button,
-  StatusBar,
-  TextInput,
+    View,
+    Dimensions
 } from 'react-native';
 
 import MainStack from '../Tentic/components/MainStack';
@@ -25,14 +17,10 @@ import MainStack from '../Tentic/components/MainStack';
 const App: () => React$Node = () => {
 
     return (
-        <View>
+        <View style={{ flex: 1, minWidth: 1000, minHeight: 500 }}>
             <MainStack />
         </View>
     );
 };
-
-
-
-
 
 export default App;

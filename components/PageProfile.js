@@ -5,6 +5,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
+    ScrollView,
 } from 'react-native';
 
 import ProfileGeneral from '../components/ProfileGeneral';
@@ -22,10 +23,6 @@ class PageProfile extends Component {
 
     generalPress = () => {
         this.setState({ currentBody: 'general' });
-    };
-
-    servicesPress = () => {
-        this.setState({ currentBody: 'services' });
     };
 
     contactsPress = () => {
@@ -54,19 +51,18 @@ class PageProfile extends Component {
                                 style={styles.button}
                                 onPress={this.generalPress}
                             >
-                                <Text>Company Name</Text>
+                                <Text>Entity Name</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={styles.button}
-                                onPress={this.servicesPress}
+                                style={styles.fakeButton}
                             >
-                                <Text>Services Provided</Text>
+                                <Text>Entity Description</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.button}
                                 onPress={this.contactsPress}
                             >
-                                <Text>Contact Info</Text>
+                                <Text>Contact Information</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.button}
@@ -90,12 +86,12 @@ class PageProfile extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.body}>
+                    <ScrollView style={styles.body}>
                         <ProfileGeneral page={currentBody} />
                         <ProfileServices page={currentBody} />
                         <ProfileContacts page={currentBody} />
                         <ProfileAbout page={currentBody} />
-                    </View>
+                    </ScrollView>
                 </View>
             );
         }
@@ -111,14 +107,15 @@ const styles = StyleSheet.create({
     },
     body: {
         padding: 32,
+        flex: 1,
         alignSelf: 'stretch',
-        backgroundColor: 'grey',
+        backgroundColor: 'lightgrey',
     },
     header: {
         paddingHorizontal: 20,
         paddingVertical: 20,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         backgroundColor: 'lightblue',
     },
     button: {
@@ -129,9 +126,17 @@ const styles = StyleSheet.create({
         backgroundColor: "#DDDDDD",
         paddingHorizontal: 30,
     },
+    fakeButton: {
+        padding: 10,
+        margin: 2,
+        borderRadius: 10,
+        overflow: 'hidden',
+        paddingHorizontal: 30,
+    },
     logo: {
         padding: 50,
         borderRadius: 50,
+        borderWidth: 2,
         overflow: 'hidden',
         justifyContent: 'center',
         backgroundColor: 'lightblue',

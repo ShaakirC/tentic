@@ -15,35 +15,59 @@ import {
 import PageHome from '../components/PageHome';
 import PageInbox from '../components/PageInbox';
 import PageProfile from '../components/PageProfile';
+import PageSettings from '../components/PageSettings';
+
+import Style1 from '../constants/Style';
+import Style2 from '../constants/Style2'; 
+
+var s = Style1;
 
 class MainStack extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPage: 'profile',
+            currentPage: 'home',
             text: '',
             homeColor: 'white',
             profileColor: 'white',
             inboxColor: 'white',
         };
+        this.profilePress();
     }
 
+    chooseStyle(theme) {
+        switch (theme) {
+            case 'Style1':
+                s = Style1;
+                break;
+            case 'Style2':
+                s = Style2;
+                break;
+            default:
+                s = Style1;
+                break;
+        }
+        this.setState({ state: this.state });
+    }
 
     homePress = () => {
-        this.highLightNavButtons('home');
+        this.setState({ currentPage: 'home' });
     };
 
     profilePress = () => {
-        this.highLightNavButtons('profile');
+        this.setState({ currentPage: 'profile' });
     };
 
     inboxPress = () => {
-        this.highLightNavButtons('inbox');
+        this.setState({ currentPage: 'inbox' });
+    };
+
+    settingsPress = () => {
+        this.setState({ currentPage: 'settings' });
     };
 
     highLightNavButtons = (page) => {
-        this.setState({ currentPage: page});
-        switch(this.state.currentPage) {
+        switch(page) {
             case 'home':
                 this.setState({
                     homeColor: 'grey',
@@ -72,107 +96,77 @@ class MainStack extends Component {
         const { currentPage } = this.state;
         return (
             <>
-                <SafeAreaView>
-                    <View style={styles.header}>
-                        <View id='logo' style={styles.logo}>
+                <View style={s.safeView}>
+                    <View style={s.header}>
+                        <View id='logo' style={s.logo}>
+                            <Text style={{ fontSize: 25}}>TT</Text>
                         </View>
-                        <View id='buttonRow'>
-                            <View style={styles.buttonRow}>
-                                <TouchableOpacity
-                                    style={[
-                                        styles.button,
-                                        { backgroundColor: this.state.homeColor },
-                                    ]}
-                                    onPress={this.homePress}
-                                >
-                                    <Text>HOME</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={[
-                                        styles.button,
-                                        { backgroundColor: this.state.profileColor },
-                                    ]}
-                                    onPress={this.profilePress}
-                                >
-                                    <Text>PROFILE</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={[
-                                        styles.button,
-                                        { backgroundColor: this.state.inboxColor },
-                                    ]}
-                                    onPress={this.inboxPress}
-                                >
-                                    <Text>INBOX</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View id='searchBar' style={styles.search}>
-                            <TextInput
-                                style={styles.searchbar}
-                                placeholder='search...'
-                                onChangeText={(text) => this.setState({ text })}
-                            />
+                        <View style={s.navButtonRow}>
+                            <TouchableOpacity
+                                style={[
+                                    styles.button
+                                ]}
+                                onPress={this.homePress}
+                            >
+                                <Text>HOME</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[
+                                    styles.button
+                                ]}
+                                onPress={this.profilePress}
+                            >
+                                <Text>PROFILE</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[
+                                    styles.button
+                                ]}
+                                onPress={this.inboxPress}
+                            >
+                                <Text>INBOX</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[
+                                    styles.button
+                                ]}
+                                onPress={this.settingsPress}
+                            >
+                                <Text>SETTINGS</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
 
-                    <ScrollView
-                        contentInsetAdjustmentBehavior="automatic"
-                        style={styles.scrollView}>
+                    <View
+                        style={styles.bodyView}>
                         
 
-                        <PageHome page={currentPage} />
+                        <PageHome page={currentPage} st={s}/>
                         <PageProfile page={currentPage} />
                         <PageInbox page={currentPage} />
+                        <PageSettings page={currentPage} applyStylePress={ this.chooseStyle.bind(this)} />
 
-                    </ScrollView>
-                </SafeAreaView>
+                    </View>
+                </View>
             </>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
+    bodyView: {
         backgroundColor: 'white',
-    },
-    engine: {
-        position: 'absolute',
-        right: 0,
-    },
-    body: {
-        backgroundColor: 'white',
-    },
-    header: {
-        paddingHorizontal: 20,
-        paddingVertical: 20,
+        flex: 5,
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        backgroundColor: 'gray',
     },
     button: {
         padding: 10,
-        paddingHorizontal: 30,
-    },
-    logo: {
-        padding: 50,
-        borderRadius: 50,
-        overflow: 'hidden',
-        justifyContent: 'center',
+        alignSelf: 'center',
+        paddingHorizontal: 10,
         backgroundColor: 'lightblue',
     },
-    buttonRow: {
-        flexDirection: 'row',
-        flexGrow: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 32,
-        alignContent: 'stretch',
-        borderRadius: 50,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-    },
     search: {
-        padding: 20,
+        padding: 30,
         justifyContent: 'center',
         width: 250,
         borderRadius: 50,
@@ -184,6 +178,8 @@ const styles = StyleSheet.create({
         padding: 32,
         width: 250,
         height: 60,
+        borderRadius: 50,
+        overflow: 'hidden',
         backgroundColor: 'white',
     },
     sectionContainer: {

@@ -4,6 +4,7 @@ import {
     View,
     Text,
     StyleSheet,
+    ListView,
     TouchableOpacity,
 } from 'react-native';
 
@@ -18,30 +19,35 @@ class ProfileGeneral extends Component {
         }
         else {
             return (
-                <View style={styles.general}>
-                    <View style={styles.container}>
-                        <Text style={styles.heading}>Background</Text>
-                        <View style={styles.content}>
-                            <Text>content</Text>
-                        </View>
+                <View style={{flexDirection: 'column', flex: 1}}>
+                    <View style={styles.general}>
+                        <TouchableOpacity
+                            style={ styles.button}
+                            onPress={this.liveTenders}
+                        >
+                            <Text>Live Tenders</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={this.awardedTenders}
+                        >
+                            <Text style={{ justifyContent: 'center' }}>Awarded{'\n'}Tenders</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={this.projects}
+                        >
+                            <Text>Projects</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={this.history}
+                        >
+                            <Text>History</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.container}>
-                        <Text style={styles.heading}>Key Projects</Text>
-                        <View style={styles.content}>
-                            <Text>content</Text>
-                        </View>
-                    </View>
-                    <View style={styles.container}>
-                        <Text style={styles.heading}>Staff</Text>
-                        <View style={styles.content}>
-                            <Text>content</Text>
-                        </View>
-                    </View>
-                    <View style={styles.container}>
-                        <Text style={styles.heading}>Legal Documents</Text>
-                        <View style={styles.content}>
-                            <Text>content</Text>
-                        </View>
+                    <View>
+
                     </View>
                 </View>
             );
@@ -51,26 +57,39 @@ class ProfileGeneral extends Component {
 
 const styles = StyleSheet.create({
     general: {
-        alignItems: 'stretch',
         flex: 1,
         flexDirection: 'row',
-        padding: 32,
         justifyContent: 'space-between',
+        padding: 32,
     },
     container: {
+        flex: 1,
+        padding: 32,
+        margin: 12,
+        height: 400,
+        borderColor: 'black',
+        borderWidth: 2,
         alignContent: 'center',
         flexDirection: 'column',
     },
     heading: {
-        fontSize: 25,
+        fontSize: 20,
         alignSelf: 'center',
         flex: 1,
         alignContent: 'center',
     },
     content: {
         flex: 5,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignContent: 'center',
+    },
+    button: {
+        backgroundColor: 'skyblue',
+        justifyContent: 'center',
+        borderRadius: 12,
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        margin: 12,
     },
 });
 
